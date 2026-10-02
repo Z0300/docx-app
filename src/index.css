@@ -1,0 +1,188 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/* Only the two custom themes below are generated; built-in daisyUI themes are turned off. */
+@plugin "daisyui" {
+    themes: false;
+    logs: false;
+}
+
+@plugin "daisyui/theme" {
+    name: "app-light";
+    default: true;
+    prefersdark: false;
+    color-scheme: light;
+
+    --color-base-100: #ffffff;
+    --color-base-200: #f2f4f6;   /* surface-container-low */
+    --color-base-300: #e0e3e5;   /* surface-container-highest, used as the standard border */
+    --color-base-content: #191c1e;   /* on-surface */
+    --color-primary: #1e3a8a;    /* "Primary Action" per spec prose — see flag above */
+    --color-primary-content: #ffffff;
+
+    --color-secondary: #505f76;
+    --color-secondary-content: #ffffff;
+
+    --color-accent: #0d8a7a;     /* not specified by Stitch — kept from the existing template */
+    --color-accent-content: #ffffff;
+
+    --color-neutral: #444651;    /* on-surface-variant */
+    --color-neutral-content: #eff1f3;
+
+    --color-info: #2563eb;       /* "Refer/Return" */
+    --color-info-content: #ffffff;
+    --color-success: #16a34a;    /* "Approved/Complete" */
+    --color-success-content: #ffffff;
+    --color-warning: #d97706;    /* "Pending" */
+    --color-warning-content: #1f1600;
+    --color-error: #dc2626;      /* "Rejected" */
+    --color-error-content: #ffffff;
+
+    /* Uniform 4px radius everywhere — spec is explicit that badges are NOT pills */
+    --radius-selector: 0.25rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.25rem;
+
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;    /* spec: elevation via outlines, not shadows */
+    --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+    name: "app-dark";
+    default: false;
+    prefersdark: true;
+    color-scheme: dark;
+    --color-base-100: #171c29;
+    --color-base-200: #121622;
+    --color-base-300: #0c0f18;
+    --color-base-content: #dde2ef;
+    --color-primary: #7d9bff;
+    --color-primary-content: #0b1030;
+    --color-secondary: #98a2b8;
+    --color-secondary-content: #10131c;
+    --color-accent: #3cc4b0;
+    --color-accent-content: #04211c;
+    --color-neutral: #262d42;
+    --color-neutral-content: #dde2ef;
+    --color-info: #5aaae6;
+    --color-info-content: #051624;
+    --color-success: #45c184;
+    --color-success-content: #04170e;
+    --color-warning: #e5b54a;
+    --color-warning-content: #221800;
+    --color-error: #ee6b5f;
+    --color-error-content: #2a0704;
+    --radius-selector: 0.5rem;
+    --radius-field: 0.375rem;
+    --radius-box: 0.625rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 0;
+    --noise: 0;
+}
+
+@theme {
+    --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+    --text-display: 1.875rem;
+    --text-display--line-height: 2.375rem;
+    --text-headline-lg: 1.5rem;
+    --text-headline-lg--line-height: 2rem;
+    --text-headline-md: 1.25rem;
+    --text-headline-md--line-height: 1.75rem;
+    --text-title-lg: 1.125rem;
+    --text-title-lg--line-height: 1.5rem;
+    --text-title-md: 1rem;
+    --text-title-md--line-height: 1.5rem;
+    --text-body-lg: 1rem;
+    --text-body-lg--line-height: 1.5rem;
+    --text-body-md: 0.875rem;
+    --text-body-md--line-height: 1.25rem;
+    --text-body-sm: 0.8125rem;
+    --text-body-sm--line-height: 1.125rem;
+    --text-label-lg: 0.875rem;
+    --text-label-lg--line-height: 1.25rem;
+    --text-label-md: 0.75rem;
+    --text-label-md--line-height: 1rem;
+    --text-label-sm: 0.6875rem;
+    --text-label-sm--line-height: 1rem;
+
+    --spacing: 0.25rem;   /* 4px baseline — Tailwind's default already matches this, kept explicit */
+    --color-brand: #00236f;   /* wordmark/logo navy — see flag #1 above */
+    --color-tone-abstain: #ea580c;
+    --color-tone-draft: #64748b;
+}
+
+@layer base {
+    html {
+        font-family: var(--font-sans);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Keyboard focus should always be visible, including on custom controls. */
+    :focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(300%);
+    }
+}
+
+@layer components {
+    .nav-active {
+        border-left: 2px solid var(--color-primary);
+        background-color: color-mix(in oklab, var(--color-primary) 6%, transparent);
+        padding-left: calc(0.75rem - 2px); /* offsets the border so text doesn't shift */
+    }
+
+    .btn-surface {
+        background-color: var(--color-base-100);
+        border: 1px solid var(--color-base-300);
+        color: var(--color-base-content);
+    }
+
+    .btn-surface:hover {
+        border-color: var(--color-neutral); /* spec: "hover, borders darken by one tier" */
+    }
+
+    .table-custom thead th {
+        background-color: var(--color-base-200);
+        font-size: var(--text-label-sm);
+        line-height: var(--text-label-sm--line-height);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .table-custom tbody tr {
+        background-color: var(--color-base-100);
+        border-bottom: 1px solid var(--color-base-200); /* "rows: bottom border only" */
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: var(--color-base-200);
+    }
+
+    .table-custom th,
+    .table-custom td {
+        padding-block: 0.5rem; /* 8px — spec's "Compact" density */
+    }
+}
