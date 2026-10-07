@@ -14,6 +14,13 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated.index'
 import { Route as AuthenticatedForbiddenRouteImport } from './routes/_authenticated.forbidden'
 import { Route as AuthenticatedRecordsRouteImport } from './routes/_authenticated.records'
+import { Route as AuthenticatedAuditDocumentsRouteImport } from './routes/_authenticated/audit/documents'
+import { Route as AuthenticatedAuditTransactionsRouteImport } from './routes/_authenticated/audit/transactions'
+import { Route as AuthenticatedDocumentsIndexRouteImport } from './routes/_authenticated/documents/index'
+import { Route as AuthenticatedDocumentsDocumentIdRouteImport } from './routes/_authenticated/documents/$documentId'
+import { Route as AuthenticatedDocumentsMineRouteImport } from './routes/_authenticated/documents/mine'
+import { Route as AuthenticatedDocumentsNewRouteImport } from './routes/_authenticated/documents/new'
+import { Route as AuthenticatedDocumentsSearchRouteImport } from './routes/_authenticated/documents/search'
 
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
@@ -39,18 +46,74 @@ const AuthenticatedRecordsRoute = AuthenticatedRecordsRouteImport.update({
   path: '/records',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAuditDocumentsRoute =
+  AuthenticatedAuditDocumentsRouteImport.update({
+    id: '/audit/documents',
+    path: '/audit/documents',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAuditTransactionsRoute =
+  AuthenticatedAuditTransactionsRouteImport.update({
+    id: '/audit/transactions',
+    path: '/audit/transactions',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentsIndexRoute =
+  AuthenticatedDocumentsIndexRouteImport.update({
+    id: '/documents/',
+    path: '/documents/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentsDocumentIdRoute =
+  AuthenticatedDocumentsDocumentIdRouteImport.update({
+    id: '/documents/$documentId',
+    path: '/documents/$documentId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentsMineRoute =
+  AuthenticatedDocumentsMineRouteImport.update({
+    id: '/documents/mine',
+    path: '/documents/mine',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentsNewRoute =
+  AuthenticatedDocumentsNewRouteImport.update({
+    id: '/documents/new',
+    path: '/documents/new',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDocumentsSearchRoute =
+  AuthenticatedDocumentsSearchRouteImport.update({
+    id: '/documents/search',
+    path: '/documents/search',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
   '/forbidden': typeof AuthenticatedForbiddenRoute
   '/records': typeof AuthenticatedRecordsRoute
+  '/audit/documents': typeof AuthenticatedAuditDocumentsRoute
+  '/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
+  '/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
+  '/documents/mine': typeof AuthenticatedDocumentsMineRoute
+  '/documents/new': typeof AuthenticatedDocumentsNewRoute
+  '/documents/search': typeof AuthenticatedDocumentsSearchRoute
+  '/documents/': typeof AuthenticatedDocumentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/forbidden': typeof AuthenticatedForbiddenRoute
   '/records': typeof AuthenticatedRecordsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/audit/documents': typeof AuthenticatedAuditDocumentsRoute
+  '/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
+  '/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
+  '/documents/mine': typeof AuthenticatedDocumentsMineRoute
+  '/documents/new': typeof AuthenticatedDocumentsNewRoute
+  '/documents/search': typeof AuthenticatedDocumentsSearchRoute
+  '/documents': typeof AuthenticatedDocumentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +122,41 @@ export interface FileRoutesById {
   '/_authenticated/forbidden': typeof AuthenticatedForbiddenRoute
   '/_authenticated/records': typeof AuthenticatedRecordsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/audit/documents': typeof AuthenticatedAuditDocumentsRoute
+  '/_authenticated/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
+  '/_authenticated/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
+  '/_authenticated/documents/mine': typeof AuthenticatedDocumentsMineRoute
+  '/_authenticated/documents/new': typeof AuthenticatedDocumentsNewRoute
+  '/_authenticated/documents/search': typeof AuthenticatedDocumentsSearchRoute
+  '/_authenticated/documents/': typeof AuthenticatedDocumentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/forbidden' | '/records'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/forbidden'
+    | '/records'
+    | '/audit/documents'
+    | '/audit/transactions'
+    | '/documents/$documentId'
+    | '/documents/mine'
+    | '/documents/new'
+    | '/documents/search'
+    | '/documents/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/forbidden' | '/records' | '/'
+  to:
+    | '/login'
+    | '/forbidden'
+    | '/records'
+    | '/'
+    | '/audit/documents'
+    | '/audit/transactions'
+    | '/documents/$documentId'
+    | '/documents/mine'
+    | '/documents/new'
+    | '/documents/search'
+    | '/documents'
   id:
     | '__root__'
     | '/_authenticated'
@@ -72,6 +164,13 @@ export interface FileRouteTypes {
     | '/_authenticated/forbidden'
     | '/_authenticated/records'
     | '/_authenticated/'
+    | '/_authenticated/audit/documents'
+    | '/_authenticated/audit/transactions'
+    | '/_authenticated/documents/$documentId'
+    | '/_authenticated/documents/mine'
+    | '/_authenticated/documents/new'
+    | '/_authenticated/documents/search'
+    | '/_authenticated/documents/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,6 +215,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRecordsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/audit/documents': {
+      id: '/_authenticated/audit/documents'
+      path: '/audit/documents'
+      fullPath: '/audit/documents'
+      preLoaderRoute: typeof AuthenticatedAuditDocumentsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/audit/transactions': {
+      id: '/_authenticated/audit/transactions'
+      path: '/audit/transactions'
+      fullPath: '/audit/transactions'
+      preLoaderRoute: typeof AuthenticatedAuditTransactionsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/documents/': {
+      id: '/_authenticated/documents/'
+      path: '/documents'
+      fullPath: '/documents/'
+      preLoaderRoute: typeof AuthenticatedDocumentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/documents/$documentId': {
+      id: '/_authenticated/documents/$documentId'
+      path: '/documents/$documentId'
+      fullPath: '/documents/$documentId'
+      preLoaderRoute: typeof AuthenticatedDocumentsDocumentIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/documents/mine': {
+      id: '/_authenticated/documents/mine'
+      path: '/documents/mine'
+      fullPath: '/documents/mine'
+      preLoaderRoute: typeof AuthenticatedDocumentsMineRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/documents/new': {
+      id: '/_authenticated/documents/new'
+      path: '/documents/new'
+      fullPath: '/documents/new'
+      preLoaderRoute: typeof AuthenticatedDocumentsNewRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/documents/search': {
+      id: '/_authenticated/documents/search'
+      path: '/documents/search'
+      fullPath: '/documents/search'
+      preLoaderRoute: typeof AuthenticatedDocumentsSearchRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
@@ -123,12 +271,26 @@ interface AuthenticatedRouteChildren {
   AuthenticatedForbiddenRoute: typeof AuthenticatedForbiddenRoute
   AuthenticatedRecordsRoute: typeof AuthenticatedRecordsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAuditDocumentsRoute: typeof AuthenticatedAuditDocumentsRoute
+  AuthenticatedAuditTransactionsRoute: typeof AuthenticatedAuditTransactionsRoute
+  AuthenticatedDocumentsDocumentIdRoute: typeof AuthenticatedDocumentsDocumentIdRoute
+  AuthenticatedDocumentsMineRoute: typeof AuthenticatedDocumentsMineRoute
+  AuthenticatedDocumentsNewRoute: typeof AuthenticatedDocumentsNewRoute
+  AuthenticatedDocumentsSearchRoute: typeof AuthenticatedDocumentsSearchRoute
+  AuthenticatedDocumentsIndexRoute: typeof AuthenticatedDocumentsIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedForbiddenRoute: AuthenticatedForbiddenRoute,
   AuthenticatedRecordsRoute: AuthenticatedRecordsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAuditDocumentsRoute: AuthenticatedAuditDocumentsRoute,
+  AuthenticatedAuditTransactionsRoute: AuthenticatedAuditTransactionsRoute,
+  AuthenticatedDocumentsDocumentIdRoute: AuthenticatedDocumentsDocumentIdRoute,
+  AuthenticatedDocumentsMineRoute: AuthenticatedDocumentsMineRoute,
+  AuthenticatedDocumentsNewRoute: AuthenticatedDocumentsNewRoute,
+  AuthenticatedDocumentsSearchRoute: AuthenticatedDocumentsSearchRoute,
+  AuthenticatedDocumentsIndexRoute: AuthenticatedDocumentsIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

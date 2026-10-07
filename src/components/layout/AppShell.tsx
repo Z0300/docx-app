@@ -76,13 +76,13 @@ export function AppShell() {
                         <button type="button" tabIndex={0} className="btn btn-ghost btn-sm gap-2">
               <span
                   className="bg-primary text-primary-content grid size-6 place-items-center rounded-full text-xs font-semibold">
-                {user?.userName.charAt(0).toUpperCase()}
+                {user?.username.charAt(0).toUpperCase()}
               </span>
-                            <span className="hidden sm:inline">{user?.userName}</span>
+                            <span className="hidden sm:inline">{user?.username}</span>
                         </button>
                         <div tabIndex={0}
                              className="dropdown-content bg-base-100 border-base-300 z-40 mt-2 w-60 rounded-box border p-3 shadow-lg">
-                            <p className="font-medium">{user?.userName}</p>
+                            <p className="font-medium">{user?.username}</p>
                             <p className="text-base-content/60 mb-3 text-xs">{user?.roles.join(', ') || 'No roles assigned'}</p>
                             <button type="button" className="btn btn-sm btn-block justify-start" onClick={signOut}>
                                 <LogOut size={16}/> Sign out
@@ -105,7 +105,7 @@ export function AppShell() {
                         <ul className="menu w-full gap-0.5 px-3">
                             {visibleNav.map(({label, to, icon: Icon}) => (
                                 <li key={to}>
-                                    <Link to={to} activeOptions={{exact: to === '/'}}
+                                    <Link to={to} activeOptions={{exact: false}}
                                           activeProps={{className: 'nav-active'}}>
                                         <Icon size={17} aria-hidden="true"/>
                                         {label}

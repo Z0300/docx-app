@@ -11,8 +11,8 @@ import type { AuthUser } from '@/stores/authStore'
 import type { RecordItem, RecordStatus } from '@/features/records/types'
 
 const USERS: Record<string, { password: string; user: AuthUser }> = {
-  admin: { password: 'password', user: { id: 1, userName: 'admin', roles: ['ADMIN'] } },
-  approver: { password: 'password', user: { id: 2, userName: 'approver', roles: ['APPROVER'] } },
+  admin: { password: 'password', user: { id: 1, username: 'admin', roles: ['ADMIN'] } },
+  approver: { password: 'password', user: { id: 2, username: 'approver', roles: ['APPROVER'] } },
 }
 
 const b64url = (o: object) => btoa(JSON.stringify(o)).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_')
@@ -61,7 +61,7 @@ export function installMockApi() {
       return ok(config, {
         success: true,
         message: 'Signed in',
-        data: { accessToken: fakeJwt(entry.user.userName), user: entry.user },
+        data: { accessToken: fakeJwt(entry.user.username), user: entry.user },
         meta: null,
       })
     }

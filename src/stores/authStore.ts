@@ -4,7 +4,7 @@ import { getTokenExpiry } from '@/lib/auth/jwt'
 
 export interface AuthUser {
   id: number
-  userName: string
+  username: string
   /** Normalised: upper-case, no "ROLE_" prefix. e.g. "ADMIN", "APPROVER". */
   roles: string[]
 }

@@ -115,6 +115,7 @@
     --color-brand: #00236f;   /* wordmark/logo navy — see flag #1 above */
     --color-tone-abstain: #ea580c;
     --color-tone-draft: #64748b;
+    --color-secondary-container: #d0e1fb;
 }
 
 @layer base {
@@ -148,9 +149,36 @@
 
 @layer components {
     .nav-active {
-        border-left: 2px solid var(--color-primary);
-        background-color: color-mix(in oklab, var(--color-primary) 6%, transparent);
-        padding-left: calc(0.75rem - 2px); /* offsets the border so text doesn't shift */
+        background-color: var(--color-secondary-container);
+        color: var(--color-primary);
+        font-weight: 600;
+        border-radius: var(--radius-field);
+        padding-left: 0.75rem;
+    }
+
+    /* TanStack Router sets aria-current="page" on the active link automatically. daisyUI's
++    .menu component also styles that attribute by default (its own "active" look), so this
++    rule has to win over daisyUI's built-in one, not just coexist with it. */
+    .menu li > a[aria-current='page'] {
+        background-color: var(--color-secondary-container) !important;
+        color: var(--color-primary) !important;
+        font-weight: 600;
+        border-radius: var(--radius-field);
+        padding-left: 0.75rem;
+    }
+
+    .menu li > a[aria-current='page']:focus,
+    .menu li > a[aria-current='page']:active {
+        background-color: var(--color-secondary-container) !important;
+        color: var(--color-primary) !important;
+    }
+
+    /* Any menu link (not just the active one) — clicking before navigation completes
++    shouldn't flash daisyUI's default dark focus/active color either. */
+    .menu li > a:focus,
+    .menu li > a:active {
+        background-color: transparent !important;
+        color: inherit !important;
     }
 
     .btn-surface {

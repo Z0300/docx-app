@@ -1,17 +1,10 @@
 import { useId } from 'react'
-import { useStore } from '@tanstack/react-form'
+import { useSelector } from '@tanstack/react-form'
+import { firstFieldError } from '@/lib/utils/formErrors'
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils/cn'
 import { useFieldContext, useFormContext } from './form-context'
 
-/** Standard Schema (zod) issues arrive as `{ message }`; plain validators may return strings. */
-function firstError(errors: unknown[]): string | null {
-  for (const e of errors) {
-    if (typeof e === 'string' && e) return e
-    if (e && typeof e === 'object' && 'message' in e && typeof e.message === 'string') return e.message
-  }
-  return null
-}
 
 interface BaseFieldProps {
   label: string
@@ -49,10 +42,10 @@ function FieldShell({
 
 function useFieldError() {
   const field = useFieldContext<string>()
-  const errors = useStore(field.store, (s) => s.meta.errors)
-  const touched = useStore(field.store, (s) => s.meta.isTouched)
-  const submitted = useStore(field.form.store, (s) => s.submissionAttempts > 0)
-  return { field, error: touched || submitted ? firstError(errors) : null }
+  const errors = useSelector(field.store, (s) => s.meta.errors)
+  const touched = useSelector(field.store, (s) => s.meta.isTouched)
+  const submitted = useSelector(field.form.store, (s) => s.submissionAttempts > 0)
+  return { field, error: touched || submitted ? firstFieldError(errors) : null }
 }
 
 export function TextField({
@@ -158,7 +151,7 @@ export function SelectField({
 
 export function SubmitButton({ children, className }: { children: ReactNode; className?: string }) {
   const form = useFormContext()
-  const isSubmitting = useStore(form.store, (s) => s.isSubmitting)
+  const isSubmitting = useSelector(form.store, (s) => s.isSubmitting)
 
   return (
     <button type="submit" className={cn('btn btn-primary', className)} disabled={isSubmitting}>

@@ -8,7 +8,7 @@ export function DashboardPage() {
 
   return (
     <>
-      <PageHeader title={`Welcome, ${user?.userName}`} description="This is the starter dashboard. Replace it with what your users open the app for." />
+      <PageHeader title={`Welcome, ${user?.username}`} description="This is the starter dashboard. Replace it with what your users open the app for." />
       <div className="bg-base-100 border-base-300 rounded-box border p-6">
         <p className="text-sm">
           The <Link className="link link-primary" to="/records">Records</Link> page is a complete reference feature:
