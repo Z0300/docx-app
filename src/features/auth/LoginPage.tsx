@@ -23,7 +23,7 @@ export function LoginPage() {
   const clearLogoutReason = useAuthStore((s) => s.clearLogoutReason)
 
   const form = useAppForm({
-    defaultValues: { userName: '', password: '' },
+    defaultValues: { username: '', password: '' },
     validators: { onChange: loginSchema },
     onSubmit: async ({ value }) => {
       await login
@@ -55,7 +55,7 @@ export function LoginPage() {
             void form.handleSubmit()
           }}
         >
-          <form.AppField name="userName">
+          <form.AppField name="username">
             {(field) => <field.TextField label="Username" autoComplete="username" required />}
           </form.AppField>
 
