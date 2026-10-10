@@ -6,11 +6,11 @@ import {useAppForm} from '@/components/form/form'
 import {getErrorMessage} from '@/lib/api/errors'
 import {formatBytes} from '@/lib/utils/format'
 import {createDocumentSchema} from './schema'
-import {useCreateDocument, useUploadFile} from './queries'
 import type {UserSummary} from "@/features/users/types.ts";
 import {ApproverChainPicker} from "@/components/form/ApproverChainPicker.tsx";
 import {UserCombobox} from "@/components/form/UserCombobox.tsx";
 import {firstFieldError} from "@/lib/utils/formErrors.tsx";
+import {useCreateDocument, useUploadFile} from "./mutations";
 
 const ACCEPTED_EXTENSIONS = ['.pdf', '.docx', '.xlsx']
 const MAX_SIZE_BYTES = 50 * 1024 * 1024

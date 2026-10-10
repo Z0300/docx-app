@@ -1,23 +1,35 @@
-
-import { getRouteApi } from '@tanstack/react-router'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { useUrlPageState } from '@/components/table/useUrlPageState'
-import { useDocumentSearch } from './queries'
-import { DocumentSearchTable } from './DocumentSearchTable'
+import {getRouteApi} from '@tanstack/react-router'
+import {PageHeader} from '@/components/ui/PageHeader'
+import {useUrlPageState} from '@/components/table/useUrlPageState'
+import {useDocumentSearch} from './queries'
+import {DocumentSearchTable} from './DocumentSearchTable'
 
 const route = getRouteApi('/_authenticated/documents/search')
 
 export function AdminDocumentSearchPage() {
     const search = route.useSearch()
     const navigate = route.useNavigate()
-    const update = (patch: Partial<typeof search>) => void navigate({ search: (prev) => ({ ...prev, ...patch }) })
-    const { pagination, sorting, onPaginationChange, onSortingChange, params } = useUrlPageState(search, update, 'createdDate,desc')
+    const update = (patch: Partial<typeof search>) => void navigate({search: (prev) => ({...prev, ...patch})})
+    const {
+        pagination,
+        sorting,
+        onPaginationChange,
+        onSortingChange,
+        params
+    } = useUrlPageState(search, update, 'createdDate,desc')
 
-    const query = useDocumentSearch({ ...params, status: search.status, originatorUserId: search.originatorUserId })
+    const query = useDocumentSearch({
+        ...params,
+        status: search.status,
+        originatorUserId: search.originatorUserId,
+        from: search.from,
+        to: search.to
+    })
 
     return (
         <>
-            <PageHeader title="All Documents" description="Every document in the system, across every originator and status." />
+            <PageHeader title="All Documents"
+                        description="Every document in the system, across every originator and status."/>
             <DocumentSearchTable
                 query={query}
                 pagination={pagination}
@@ -25,7 +37,10 @@ export function AdminDocumentSearchPage() {
                 sorting={sorting}
                 onSortingChange={onSortingChange}
                 status={search.status ?? ''}
-                onStatusChange={(status) => update({ status: status || undefined, page: 1 })}
+                onStatusChange={(status) => update({status: status || undefined, page: 1})}
+                from={search.from}
+                to={search.to}
+                onDateRangeChange={(range => update({...range, page: 1}))}
             />
         </>
     )
