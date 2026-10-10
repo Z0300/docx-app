@@ -15,14 +15,14 @@ export const createDocumentSchema = z.object({
 export const applyActionSchema = z.object({
     stepId: z.number().int().positive(),
     actionCode: z.enum(APPROVAL_ACTION_CODES),
-    comments: z.string().max(1000).optional(),
+    comments: z.string().max(1000),
 })
 export type ApplyActionInput = z.infer<typeof applyActionSchema>
 
 export const resubmitSchema = z.object({
     fileName: z.string().trim().min(1, 'Attach a file'),
     filePath: z.string().trim().min(1, 'Attach a file'),
-    changeComments: z.string().max(1000).optional(),
+    changeComments: z.string().max(1000),
 })
 export type ResubmitInput = z.infer<typeof resubmitSchema>
 
@@ -38,7 +38,6 @@ export const documentSearchSchema = pageSearchSchema.extend({
     to: z.string().optional().catch(undefined).optional(),
 })
 
-export const auditDocumentSearchSchema = documentSearchSchema
 
 export const auditTransactionSearchSchema = pageSearchSchema.extend({
     documentId: z.number().int().positive().optional().catch(undefined).optional(),

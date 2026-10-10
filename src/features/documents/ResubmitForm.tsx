@@ -5,7 +5,7 @@
 import { useAppForm } from '@/components/form/form'
 import { getErrorMessage } from '@/lib/api/errors'
 import { resubmitSchema } from './schema'
-import { useResubmitDocument } from './queries'
+import {useResubmitDocument} from "./mutations";
 
 export function ResubmitForm({ documentId }: { documentId: number }) {
     const resubmit = useResubmitDocument(documentId)

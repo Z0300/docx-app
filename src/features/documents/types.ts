@@ -75,7 +75,9 @@ export interface DocumentVersionResponse {
 
 export interface DocumentSearchFilters {
     status?: DocumentStatus
-    originatorUserId?: number
+    originatorUserId?: number,
+    from?: string,
+    to?: string,
 }
 
 export interface FileUploadResponse {

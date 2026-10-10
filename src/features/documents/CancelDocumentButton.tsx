@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Modal } from '@/components/ui/Modal'
 import { getErrorMessage } from '@/lib/api/errors'
-import { useCancelDocument } from './queries'
+import {useCancelDocument} from "./mutations";
 
 export function CancelDocumentButton({ documentId }: { documentId: number }) {
     const [open, setOpen] = useState(false)

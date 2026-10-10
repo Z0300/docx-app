@@ -2,7 +2,7 @@ import { useAppForm } from '@/components/form/form'
 import { getErrorMessage } from '@/lib/api/errors'
 import { ACTION_LABELS } from './constants'
 import { applyActionSchema } from './schema'
-import { useApplyAction } from './queries'
+import {useApplyAction} from './mutations'
 import type { ApprovalActionCode } from './types'
 
 const REVIEW_STEP_ACTIONS: ApprovalActionCode[] = ['REFER_RETURN', 'REFER_APPROVE', 'REFER_ABSTAIN']

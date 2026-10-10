@@ -12,6 +12,8 @@ import type {
     DocumentVersionResponse,
     FileUploadResponse
 } from './types'
+import {apiClient} from "@/lib/api/client.ts";
+import {fileNameFromDisposition} from "@/lib/utils/download.ts";
 
 export interface CreateDocumentPayload {
     documentTitle: string
@@ -56,7 +58,20 @@ export const documentsApi = {
 
     getMine: () => api.get<DocumentSummary[]>('/documents/mine'),
 
+    downloadFile: async (documentId: number, version?: number) => {
+        // Not api.get(): this isn't an ApiSuccess envelope, it's raw bytes.
+        const response = await apiClient.get<Blob>(`/documents/${documentId}/file`, {
+            params: version === undefined ? undefined : { version },
+            responseType: 'blob',
+        })
+        return {
+            blob: response.data,
+            fileName: fileNameFromDisposition(String(response.headers['content-disposition'] ?? '')) ?? `document-${documentId}`,
+        }
+    },
 }
+
+
 
 export const auditApi = {
     searchDocuments: (params: PageParams & DocumentSearchFilters) =>
