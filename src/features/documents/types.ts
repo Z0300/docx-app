@@ -22,6 +22,7 @@ export interface ApprovalTransactionSummary {
     stepName: string
     actionCode: ApprovalActionCode
     actionByUserId: number
+    actionByName: string
     actionDate: string
     comments: string | null
 }
@@ -34,9 +35,11 @@ export interface DocumentDetail {
     currentStepId: number | null
     currentStepName: string | null
     createdBy: number
+    createdByName: string
     createdDate: string
     completedDate: string | null
-    history: ApprovalTransactionSummary[]
+    history: ApprovalTransactionSummary[],
+    versions: DocumentVersionSummary[]
 }
 
 export interface DocumentQueueItem {
@@ -54,6 +57,7 @@ export interface DocumentSummary {
     documentTitle: string
     status: DocumentStatus
     originatorUserId: number
+    originatorName: string
     createdDate: string
     completedDate: string | null
 }
@@ -94,6 +98,7 @@ export interface AuditTransaction {
     stepName: string
     actionCode: ApprovalActionCode
     actionByUserId: number
+    actionByName: string
     actionDate: string
     comments: string | null
 }
@@ -112,4 +117,13 @@ export interface AuditTransactionFilters {
     actionByUserId?: number
     from?: string
     to?: string
+}
+
+export interface DocumentVersionSummary {
+    versionNo: number
+    fileName: string
+    createdBy: number
+    createdByName: string
+    createdDate: string
+    changeComments: string | null
 }
