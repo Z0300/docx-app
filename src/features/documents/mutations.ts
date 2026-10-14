@@ -43,6 +43,7 @@ export function useResubmitDocument(documentId: number) {
         onSuccess: () => {
             void queryClient.invalidateQueries({queryKey: documentKeys.detail(documentId)})
             void queryClient.invalidateQueries({queryKey: documentKeys.queue()})
+            void queryClient.invalidateQueries({ queryKey: documentKeys.preview(documentId) })
         },
     })
 }

@@ -27,7 +27,7 @@ const columns = col.columns([
         header: 'Status',
         cell: (info) => <StatusBadge code={info.getValue()} tones={DOCUMENT_STATUS_TONES}/>
     }),
-    col.accessor('originatorUserId', {header: 'Originator', cell: (info) => `User #${info.getValue()}`}),
+    col.accessor('originatorName', { header: 'Originator', enableSorting: false }),
     col.accessor('createdDate', {header: 'Submitted', cell: (info) => formatDateTime(info.getValue())}),
     col.accessor('completedDate', {
         header: 'Closed',

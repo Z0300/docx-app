@@ -15,19 +15,19 @@ const route = getRouteApi('/_authenticated/audit/transactions')
 const col = createServerColumns<AuditTransaction>()
 const columns = col.columns([
     col.accessor('documentNo', {
+        id: 'document.documentNo',
         header: 'Document',
         cell: (info) => (
-            <Link to="/documents/$documentId" params={{documentId: String(info.row.original.documentId)}}
-                  className="link link-primary font-medium">
+            <Link to="/documents/$documentId" params={{ documentId: String(info.row.original.documentId) }} className="link link-primary font-medium">
                 {info.getValue()}
             </Link>
         ),
     }),
-    col.accessor('stepName', {header: 'Step'}),
-    col.accessor('actionCode', {header: 'Action', cell: (info) => ACTION_LABELS[info.getValue()]}),
-    col.accessor('actionByUserId', {header: 'Actor', cell: (info) => `User #${info.getValue()}`}),
-    col.accessor('actionDate', {header: 'Date', cell: (info) => formatDateTime(info.getValue())}),
-    col.accessor('comments', {header: 'Comments', cell: (info) => info.getValue() ?? '—'}),
+    col.accessor('stepName', { id: 'step.stepName', header: 'Step' }),
+    col.accessor('actionCode', { id: 'action.actionCode', header: 'Action', cell: (info) => ACTION_LABELS[info.getValue()] }),
+    col.accessor('actionByName', { header: 'Actor', enableSorting: false }),
+    col.accessor('actionDate', { header: 'Date', cell: (info) => formatDateTime(info.getValue()) }),
+    col.accessor('comments', { header: 'Comments', cell: (info) => info.getValue() ?? '—' }),
 ])
 
 export function AuditTransactionsPage() {
