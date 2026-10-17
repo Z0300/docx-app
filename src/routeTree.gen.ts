@@ -14,6 +14,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated.index'
 import { Route as AuthenticatedForbiddenRouteImport } from './routes/_authenticated.forbidden'
 import { Route as AuthenticatedRecordsRouteImport } from './routes/_authenticated.records'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAuditDocumentsRouteImport } from './routes/_authenticated/audit/documents'
 import { Route as AuthenticatedAuditTransactionsRouteImport } from './routes/_authenticated/audit/transactions'
 import { Route as AuthenticatedDocumentsIndexRouteImport } from './routes/_authenticated/documents/index'
@@ -44,6 +45,11 @@ const AuthenticatedForbiddenRoute = AuthenticatedForbiddenRouteImport.update({
 const AuthenticatedRecordsRoute = AuthenticatedRecordsRouteImport.update({
   id: '/records',
   path: '/records',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedAuditDocumentsRoute =
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/forbidden': typeof AuthenticatedForbiddenRoute
   '/records': typeof AuthenticatedRecordsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/audit/documents': typeof AuthenticatedAuditDocumentsRoute
   '/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
   '/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/forbidden': typeof AuthenticatedForbiddenRoute
   '/records': typeof AuthenticatedRecordsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/audit/documents': typeof AuthenticatedAuditDocumentsRoute
   '/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
   '/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/_authenticated/forbidden': typeof AuthenticatedForbiddenRoute
   '/_authenticated/records': typeof AuthenticatedRecordsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/audit/documents': typeof AuthenticatedAuditDocumentsRoute
   '/_authenticated/audit/transactions': typeof AuthenticatedAuditTransactionsRoute
   '/_authenticated/documents/$documentId': typeof AuthenticatedDocumentsDocumentIdRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/forbidden'
     | '/records'
+    | '/admin/users'
     | '/audit/documents'
     | '/audit/transactions'
     | '/documents/$documentId'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/forbidden'
     | '/records'
     | '/'
+    | '/admin/users'
     | '/audit/documents'
     | '/audit/transactions'
     | '/documents/$documentId'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/_authenticated/forbidden'
     | '/_authenticated/records'
     | '/_authenticated/'
+    | '/_authenticated/admin/users'
     | '/_authenticated/audit/documents'
     | '/_authenticated/audit/transactions'
     | '/_authenticated/documents/$documentId'
@@ -213,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: '/records'
       fullPath: '/records'
       preLoaderRoute: typeof AuthenticatedRecordsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/audit/documents': {
@@ -271,6 +290,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedForbiddenRoute: typeof AuthenticatedForbiddenRoute
   AuthenticatedRecordsRoute: typeof AuthenticatedRecordsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAuditDocumentsRoute: typeof AuthenticatedAuditDocumentsRoute
   AuthenticatedAuditTransactionsRoute: typeof AuthenticatedAuditTransactionsRoute
   AuthenticatedDocumentsDocumentIdRoute: typeof AuthenticatedDocumentsDocumentIdRoute
@@ -284,6 +304,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedForbiddenRoute: AuthenticatedForbiddenRoute,
   AuthenticatedRecordsRoute: AuthenticatedRecordsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAuditDocumentsRoute: AuthenticatedAuditDocumentsRoute,
   AuthenticatedAuditTransactionsRoute: AuthenticatedAuditTransactionsRoute,
   AuthenticatedDocumentsDocumentIdRoute: AuthenticatedDocumentsDocumentIdRoute,

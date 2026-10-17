@@ -1,4 +1,4 @@
-import {ClipboardList, History, LayoutDashboard, SendHorizonal, ShieldCheck, Table2} from 'lucide-react'
+import {ClipboardList, History, LayoutDashboard, SendHorizonal, ShieldCheck, Table2, Users} from 'lucide-react'
 import type {LucideIcon} from 'lucide-react'
 import type {LinkProps} from '@tanstack/react-router'
 
@@ -22,4 +22,5 @@ export const navigation: NavItem[] = [
     {label: 'All Documents', to: '/documents/search', icon: Table2, roles: ['ADMIN']},
     {label: 'Audit · Documents', to: '/audit/documents', icon: ShieldCheck, roles: ['AUDITOR', 'ADMIN']},
     {label: 'Audit · Transactions', to: '/audit/transactions', icon: History, roles: ['AUDITOR', 'ADMIN']},
+    { label: 'Users & Roles', to: '/admin/users', icon: Users, roles: ['ADMIN'] },
 ]
